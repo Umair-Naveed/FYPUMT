@@ -63,8 +63,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onProgressChanged(Croller croller, int progress) {
                 int circleSeekBar = progress - 1;
-                fanSpeed = circleSeekBar + "";
-                textView.setText(circleSeekBar + "");
+                fanSpeed = Integer.toString(circleSeekBar);
+                textView.setText(fanSpeed);
                 if (circleSeekBar >= 0 && circleSeekBar <= 5){
                     speed = 0;
                 }
@@ -169,57 +169,57 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
     private void speed0(){
         fanLocal = "https://cloud.arest.io/FYPUMT/digital/6/0";
-        RequesturlLocal(fanLocal);
+        RequestUrlLocal(fanLocal);
         fanLocal = "https://cloud.arest.io/FYPUMT/digital/13/0";
-        RequesturlLocal(fanLocal);
+        RequestUrlLocal(fanLocal);
         fanLocal = "https://cloud.arest.io/FYPUMT/digital/19/0";
-        RequesturlLocal(fanLocal);
+        RequestUrlLocal(fanLocal);
         fanLocal = "https://cloud.arest.io/FYPUMT/digital/26/0";
-        RequesturlLocal(fanLocal);
+        RequestUrlLocal(fanLocal);
         SaveData();
     }
     private void speed1(){
         fanLocal = "https://cloud.arest.io/FYPUMT/digital/6/1";
-        RequesturlLocal(fanLocal);
+        RequestUrlLocal(fanLocal);
         fanLocal = "https://cloud.arest.io/FYPUMT/digital/13/0";
-        RequesturlLocal(fanLocal);
+        RequestUrlLocal(fanLocal);
         fanLocal = "https://cloud.arest.io/FYPUMT/digital/19/0";
-        RequesturlLocal(fanLocal);
+        RequestUrlLocal(fanLocal);
         fanLocal = "https://cloud.arest.io/FYPUMT/digital/26/0";
-        RequesturlLocal(fanLocal);
+        RequestUrlLocal(fanLocal);
         SaveData();
     }
     private void speed2(){
         fanLocal = "https://cloud.arest.io/FYPUMT/digital/6/1";
-        RequesturlLocal(fanLocal);
+        RequestUrlLocal(fanLocal);
         fanLocal = "https://cloud.arest.io/FYPUMT/digital/13/1";
-        RequesturlLocal(fanLocal);
+        RequestUrlLocal(fanLocal);
         fanLocal = "https://cloud.arest.io/FYPUMT/digital/19/0";
-        RequesturlLocal(fanLocal);
+        RequestUrlLocal(fanLocal);
         fanLocal = "https://cloud.arest.io/FYPUMT/digital/26/0";
-        RequesturlLocal(fanLocal);
+        RequestUrlLocal(fanLocal);
         SaveData();
     }
     private void speed3(){
         fanLocal = "https://cloud.arest.io/FYPUMT/digital/6/1";
-        RequesturlLocal(fanLocal);
+        RequestUrlLocal(fanLocal);
         fanLocal = "https://cloud.arest.io/FYPUMT/digital/13/1";
-        RequesturlLocal(fanLocal);
+        RequestUrlLocal(fanLocal);
         fanLocal = "https://cloud.arest.io/FYPUMT/digital/19/1";
-        RequesturlLocal(fanLocal);
+        RequestUrlLocal(fanLocal);
         fanLocal = "https://cloud.arest.io/FYPUMT/digital/26/0";
-        RequesturlLocal(fanLocal);
+        RequestUrlLocal(fanLocal);
         SaveData();
     }
     private void speed4(){
         fanLocal = "https://cloud.arest.io/FYPUMT/digital/6/1";
-        RequesturlLocal(fanLocal);
+        RequestUrlLocal(fanLocal);
         fanLocal = "https://cloud.arest.io/FYPUMT/digital/13/1";
-        RequesturlLocal(fanLocal);
+        RequestUrlLocal(fanLocal);
         fanLocal = "https://cloud.arest.io/FYPUMT/digital/19/1";
-        RequesturlLocal(fanLocal);
+        RequestUrlLocal(fanLocal);
         fanLocal = "https://cloud.arest.io/FYPUMT/digital/26/1";
-        RequesturlLocal(fanLocal);
+        RequestUrlLocal(fanLocal);
         SaveData();
     }
 
@@ -285,7 +285,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     Toast.makeText(this, "Default", Toast.LENGTH_SHORT).show();
         }
         RequesturlGlobal(urlGlobal);
-        RequesturlLocal(urlLocal);
+        RequestUrlLocal(urlLocal);
     }
     public void RequesturlGlobal(String urlGlobal){
         OkHttpClient okHttpClient = new OkHttpClient();
@@ -302,7 +302,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
     }
-    public void RequesturlLocal(String urlLocal){
+    public void RequestUrlLocal(String urlLocal){
         OkHttpClient okHttpClient = new OkHttpClient();
         Request request = new Request.Builder().url(urlLocal).build();
         okHttpClient.newCall(request).enqueue(new Callback() {
@@ -426,7 +426,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         editor.putString("switch5", switchData5);
         editor.putString("switch6", switchData6);
         editor.putString("fanSpeed", fanSpeed);
-        editor.commit();
+        //editor.commit();
+        editor.apply();
     }
 
     public void FetchData() {
@@ -439,7 +440,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switchData4 = sharedPreferences.getString("switch4", "");
         switchData5 = sharedPreferences.getString("switch5", "");
         switchData6 = sharedPreferences.getString("switch6", "");
-        fanSpeed = sharedPreferences.getString("fanSpeed", "");
+        fanSpeed = sharedPreferences.getString("fanSpeed", "0");
         final int speed = Integer.parseInt(fanSpeed);
         Switch1(switchData1);
         Switch2(switchData2);
