@@ -13,7 +13,7 @@ tools:context=".MainActivity">
     android:background="@drawable/bg"
     android:weightSum="15"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <!--<ImageView
         android:id="@+id/imgvw"
@@ -41,7 +41,7 @@ tools:context=".MainActivity">
     <GridLayout
         android:id="@+id/mainGrid"
         android:columnCount="2"
-        android:rowCount="3"
+        android:rowCount="6"
         android:alignmentMode="alignMargins"
         android:columnOrderPreserved="false"
         android:layout_weight="7"
@@ -53,7 +53,7 @@ tools:context=".MainActivity">
         <!-- Row 1 -->
 
         <!-- Column 1 -->
-        <android.support.v7.widget.CardView
+        <androidx.cardview.widget.CardView
             android:id="@+id/cell1"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -97,10 +97,10 @@ tools:context=".MainActivity">
 
             </LinearLayout>
 
-        </android.support.v7.widget.CardView>
+        </androidx.cardview.widget.CardView>
 
         <!-- Column 2 -->
-        <android.support.v7.widget.CardView
+        <androidx.cardview.widget.CardView
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_columnWeight="1"
@@ -143,13 +143,13 @@ tools:context=".MainActivity">
 
             </LinearLayout>
 
-        </android.support.v7.widget.CardView>
+        </androidx.cardview.widget.CardView>
 
 
         <!-- Row 2 -->
 
         <!-- Column 1 -->
-        <android.support.v7.widget.CardView
+        <androidx.cardview.widget.CardView
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_columnWeight="1"
@@ -192,10 +192,10 @@ tools:context=".MainActivity">
 
             </LinearLayout>
 
-        </android.support.v7.widget.CardView>
+        </androidx.cardview.widget.CardView>
 
         <!-- Column 2 -->
-        <android.support.v7.widget.CardView
+        <androidx.cardview.widget.CardView
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_columnWeight="1"
@@ -238,13 +238,13 @@ tools:context=".MainActivity">
 
             </LinearLayout>
 
-        </android.support.v7.widget.CardView>
+        </androidx.cardview.widget.CardView>
 
 
         <!-- Row 3 -->
 
         <!-- Column 1 -->
-        <android.support.v7.widget.CardView
+        <androidx.cardview.widget.CardView
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_columnWeight="1"
@@ -286,10 +286,10 @@ tools:context=".MainActivity">
 
             </LinearLayout>
 
-        </android.support.v7.widget.CardView>
+        </androidx.cardview.widget.CardView>
 
         <!-- Column 2 -->
-        <android.support.v7.widget.CardView
+        <androidx.cardview.widget.CardView
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_columnWeight="1"
@@ -331,12 +331,12 @@ tools:context=".MainActivity">
 
             </LinearLayout>
 
-        </android.support.v7.widget.CardView>
+        </androidx.cardview.widget.CardView>
 
         <!-- Row 4 -->
 
         <!-- Column 1 -->
-        <android.support.v7.widget.CardView
+        <androidx.cardview.widget.CardView
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_columnWeight="1"
@@ -375,13 +375,13 @@ tools:context=".MainActivity">
 
             </LinearLayout>
 
-        </android.support.v7.widget.CardView>
+        </androidx.cardview.widget.CardView>
 
 
         <!-- Row 4 -->
 
         <!-- Column 2 -->
-        <android.support.v7.widget.CardView
+        <androidx.cardview.widget.CardView
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_columnWeight="1"
@@ -420,7 +420,7 @@ tools:context=".MainActivity">
 
             </LinearLayout>
 
-        </android.support.v7.widget.CardView>
+        </androidx.cardview.widget.CardView>
 
 
 
@@ -437,7 +437,7 @@ tools:context=".MainActivity">
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:padding="14dp">
-        <android.support.v7.widget.CardView
+        <androidx.cardview.widget.CardView
             android:layout_width="10dp"
             android:layout_height="8dp"
             android:layout_columnWeight="1"
@@ -504,7 +504,7 @@ tools:context=".MainActivity">
                 android:text="Fan Speed"
                 />
 
-        </android.support.v7.widget.CardView>
+        </androidx.cardview.widget.CardView>
 
 
     </GridLayout>

@@ -4,17 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.graphics.ImageFormat;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.CardView;
+import androidx.cardview.widget.CardView;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,6 +33,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     String switchData1, switchData2, switchData3, switchData4, switchData5, switchData6, fanSpeed;
 
+    String ddns = "http://umtfyp.ddns.net";
+    String arest = "https://cloud.arest.io/FYPUMT";
+    String localIp = "http://192.168.1.25";
     //ImageView imageView;
     private int speed;
 
@@ -121,7 +120,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        //Do something after 100ms
+                        //Do something after 50ms
                         CardView cardView1 = (CardView) gridLayout.getChildAt(7);
                         cardView1.setCardBackgroundColor(Color.parseColor("#FFFFFF"));
 
@@ -168,57 +167,77 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
     private void speed0(){
-        fanLocal = "https://cloud.arest.io/FYPUMT/digital/6/0";
+        fanLocal = ddns + "/digital/6/0";
+        //fanLocal = localIp + "/digital/6/0";
         RequestUrlLocal(fanLocal);
-        fanLocal = "https://cloud.arest.io/FYPUMT/digital/13/0";
+        fanLocal = ddns + "/digital/13/0";
+        //fanLocal = localIp + "/digital/13/0";
         RequestUrlLocal(fanLocal);
-        fanLocal = "https://cloud.arest.io/FYPUMT/digital/19/0";
+        fanLocal = ddns + "/digital/19/0";
+        //fanLocal = localIp + "/digital/19/0";
         RequestUrlLocal(fanLocal);
-        fanLocal = "https://cloud.arest.io/FYPUMT/digital/26/0";
+        fanLocal = ddns + "/digital/26/0";
+        //fanLocal = localIp + "/digital/26/0";
         RequestUrlLocal(fanLocal);
         SaveData();
     }
     private void speed1(){
-        fanLocal = "https://cloud.arest.io/FYPUMT/digital/6/1";
+        fanLocal = ddns + "/digital/6/1";
+        //fanLocal = localIp + "/digital/6/1";
         RequestUrlLocal(fanLocal);
-        fanLocal = "https://cloud.arest.io/FYPUMT/digital/13/0";
+        fanLocal = ddns + "/digital/13/0";
+        //fanLocal = localIp + "/digital/13/0";
         RequestUrlLocal(fanLocal);
-        fanLocal = "https://cloud.arest.io/FYPUMT/digital/19/0";
+        fanLocal = ddns + "/digital/19/0";
+        //fanLocal = localIp + "/digital/19/0";
         RequestUrlLocal(fanLocal);
-        fanLocal = "https://cloud.arest.io/FYPUMT/digital/26/0";
+        fanLocal = ddns + "/digital/26/0";
+        //fanLocal = localIp + "/digital/26/0";
         RequestUrlLocal(fanLocal);
         SaveData();
     }
     private void speed2(){
-        fanLocal = "https://cloud.arest.io/FYPUMT/digital/6/1";
+        fanLocal = ddns + "/digital/6/1";
+        //fanLocal = localIp + "/digital/6/1";
         RequestUrlLocal(fanLocal);
-        fanLocal = "https://cloud.arest.io/FYPUMT/digital/13/1";
+        fanLocal = ddns + "/digital/13/1";
+        //fanLocal = localIp + "/digital/13/1";
         RequestUrlLocal(fanLocal);
-        fanLocal = "https://cloud.arest.io/FYPUMT/digital/19/0";
+        fanLocal = ddns + "/digital/19/0";
+        //fanLocal = localIp + "/digital/19/0";
         RequestUrlLocal(fanLocal);
-        fanLocal = "https://cloud.arest.io/FYPUMT/digital/26/0";
+        fanLocal = ddns + "/digital/26/0";
+        //fanLocal = localIp + "/digital/26/0";
         RequestUrlLocal(fanLocal);
         SaveData();
     }
     private void speed3(){
-        fanLocal = "https://cloud.arest.io/FYPUMT/digital/6/1";
+        fanLocal = ddns + "/digital/6/1";
+        //fanLocal = localIp + "/digital/6/1";
         RequestUrlLocal(fanLocal);
-        fanLocal = "https://cloud.arest.io/FYPUMT/digital/13/1";
+        fanLocal = ddns + "/digital/13/1";
+        //fanLocal = localIp + "/digital/13/1";
         RequestUrlLocal(fanLocal);
-        fanLocal = "https://cloud.arest.io/FYPUMT/digital/19/1";
+        fanLocal = ddns + "/digital/19/1";
+        //fanLocal = localIp + "/digital/19/1";
         RequestUrlLocal(fanLocal);
-        fanLocal = "https://cloud.arest.io/FYPUMT/digital/26/0";
+        //fanLocal = localIp + "/digital/26/0";
+        fanLocal = ddns + "/digital/26/0";
         RequestUrlLocal(fanLocal);
         SaveData();
     }
     private void speed4(){
-        fanLocal = "https://cloud.arest.io/FYPUMT/digital/6/1";
+        fanLocal = ddns + "/digital/6/1";
+        //fanLocal = localIp + "/digital/6/1";
         RequestUrlLocal(fanLocal);
-        fanLocal = "https://cloud.arest.io/FYPUMT/digital/13/1";
+        fanLocal = ddns + "/digital/13/1";
+        //fanLocal = localIp + "/digital/13/1";
         RequestUrlLocal(fanLocal);
-        fanLocal = "https://cloud.arest.io/FYPUMT/digital/19/1";
+        fanLocal = ddns + "/digital/19/1";
+        //fanLocal = localIp + "/digital/19/1";
         RequestUrlLocal(fanLocal);
-        fanLocal = "https://cloud.arest.io/FYPUMT/digital/26/1";
+        fanLocal = ddns + "/digital/26/1";
+        //fanLocal = localIp + "/digital/26/1";
         RequestUrlLocal(fanLocal);
         SaveData();
     }
@@ -328,16 +347,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         CardView cardView1 = (CardView) gridLayout.getChildAt(0);
         if (condition.equals("ON"))
         {
-            urlGlobal = "https://cloud.arest.io/FYPUMT/digital/17/1";
-            urlLocal = "http://192.168.1.25/digital/17/1";
+            urlGlobal = ddns + "/digital/17/1";
+            urlLocal = localIp + "/digital/17/1";
             cardView1.setCardBackgroundColor(Color.parseColor("#008080"));
-            Toast.makeText(this, "Light ON", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Bulb ON", Toast.LENGTH_SHORT).show();
         }
         else if (condition.equals("OFF")){
-            urlGlobal = "https://cloud.arest.io/FYPUMT/digital/17/0";
-            urlLocal = "http://192.168.1.25/digital/17/0";
+            urlGlobal = ddns + "/digital/17/0";
+            urlLocal = localIp + "/digital/17/0";
             cardView1.setCardBackgroundColor(Color.parseColor("#FFFFFF"));
-            Toast.makeText(this, "Light OFF", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Bulb OFF", Toast.LENGTH_SHORT).show();
 
         }
     }
@@ -345,15 +364,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         CardView cardView2 = (CardView) gridLayout.getChildAt(1);
         if (condition.equals("ON"))
         {
-            urlGlobal = "https://cloud.arest.io/FYPUMT/digital/27/1";
-            urlLocal = "http://192.168.1.25/digital/27/1";
+            urlGlobal = ddns + "/digital/27/1";
+            urlLocal = localIp + "/digital/27/1";
             cardView2.setCardBackgroundColor(Color.parseColor("#008080"));
             Toast.makeText(this, "Tube Light ON", Toast.LENGTH_SHORT).show();
         }
         else if (condition.equals("OFF"))
         {
-            urlGlobal = "https://cloud.arest.io/FYPUMT/digital/27/0";
-            urlLocal = "http://192.168.1.25/digital/27/0";
+            urlGlobal = ddns + "/digital/27/0";
+            urlLocal = localIp + "/digital/27/0";
             cardView2.setCardBackgroundColor(Color.parseColor("#FFFFFF"));
             Toast.makeText(this, "Tube Light OFF", Toast.LENGTH_SHORT).show();
         }
@@ -362,13 +381,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void Switch3(String condition){
         CardView cardView3 = (CardView) gridLayout.getChildAt(2);
         if (condition.equals("ON")){
-            urlGlobal = "https://cloud.arest.io/FYPUMT/digital/22/1";
-            urlLocal = "http://192.168.1.25/digital/22/1";
+            urlGlobal = ddns + "/digital/22/1";
+            urlLocal = localIp + "/digital/22/1";
             cardView3.setCardBackgroundColor(Color.parseColor("#008080"));
             Toast.makeText(this, "Table Lamp ON", Toast.LENGTH_SHORT).show();
         }else if (condition.equals("OFF")){
-            urlGlobal = "https://cloud.arest.io/FYPUMT/digital/22/0";
-            urlLocal = "http://192.168.1.25/digital/22/0";
+            urlGlobal = ddns + "/digital/22/0";
+            urlLocal = localIp + "/digital/22/0";
             cardView3.setCardBackgroundColor(Color.parseColor("#FFFFFF"));
             Toast.makeText(this, "Table Lamp OFF", Toast.LENGTH_SHORT).show();
         }
@@ -376,13 +395,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void Switch4(String condition){
         CardView cardView4 = (CardView) gridLayout.getChildAt(3);
         if (condition.equals("ON")){
-            urlGlobal = "https://cloud.arest.io/FYPUMT/digital/16/1";
-            urlLocal = "http://192.168.1.25/digital/16/1";
+            urlGlobal = ddns + "/digital/16/1";
+            urlLocal = localIp + "/digital/16/1";
             cardView4.setCardBackgroundColor(Color.parseColor("#008080"));
             Toast.makeText(this, "Exhaust ON", Toast.LENGTH_SHORT).show();
         }else if(condition.equals("OFF")){
-            urlGlobal = "https://cloud.arest.io/FYPUMT/digital/16/0";
-            urlLocal = "http://192.168.1.25/digital/16/0";
+            urlGlobal = ddns + "/digital/16/0";
+            urlLocal = localIp + "/digital/16/0";
             cardView4.setCardBackgroundColor(Color.parseColor("#FFFFFF"));
             Toast.makeText(this, "Exhaust OFF", Toast.LENGTH_SHORT).show();
         }
@@ -390,13 +409,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void Switch5(String condition){
         CardView cardView5 = (CardView) gridLayout.getChildAt(4);
         if (condition.equals("ON")){
-            urlGlobal = "https://cloud.arest.io/FYPUMT/digital/20/1";
-            urlLocal = "http://192.168.1.25/digital/20/1";
+            urlGlobal = ddns + "/digital/20/1";
+            urlLocal = localIp + "/digital/20/1";
             cardView5.setCardBackgroundColor(Color.parseColor("#008080"));
             Toast.makeText(this, "Television ON", Toast.LENGTH_SHORT).show();
         }else if (condition.equals("OFF")){
-            urlGlobal = "https://cloud.arest.io/FYPUMT/digital/20/0";
-            urlLocal = "http://192.168.1.25/digital/20/0";
+            urlGlobal = ddns + "/digital/20/0";
+            urlLocal = localIp + "/digital/20/0";
             cardView5.setCardBackgroundColor(Color.parseColor("#FFFFFF"));
             Toast.makeText(this, "Television OFF", Toast.LENGTH_SHORT).show();
         }
@@ -404,13 +423,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void Switch6(String condition){
         CardView cardView6 = (CardView) gridLayout.getChildAt(5);
         if (condition.equals("ON")){
-            urlGlobal = "https://cloud.arest.io/FYPUMT/digital/21/1";
-            urlLocal = "http://192.168.1.25/digital/21/1";
+            urlGlobal = ddns + "/digital/21/1";
+            urlLocal = localIp + "/digital/21/1";
             cardView6.setCardBackgroundColor(Color.parseColor("#008080"));
             Toast.makeText(this, "Heater ON", Toast.LENGTH_SHORT).show();
         }else if (condition.equals("OFF")){
-            urlGlobal = "https://cloud.arest.io/FYPUMT/digital/21/0";
-            urlLocal = "http://192.168.1.25/digital/21/0";
+            urlGlobal = ddns + "/digital/21/0";
+            urlLocal = localIp + "/digital/21/0";
             cardView6.setCardBackgroundColor(Color.parseColor("#FFFFFF"));
             Toast.makeText(this, "Heater OFF", Toast.LENGTH_SHORT).show();
         }

@@ -2,14 +2,13 @@ package com.example.fypumt;
 
 import android.graphics.Color;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.CardView;
+import androidx.cardview.widget.CardView;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -30,6 +29,8 @@ public class CameraActivity extends AppCompatActivity {
     GridLayout gridLayout;
 
     String urlOn, urlOff;
+    String ddns = "http://umtfyp.ddns.net";
+    String arest = "https://cloud.arest.io/FYPUMT";
     ImageButton openDoor, reload;
 
     @Override
@@ -45,7 +46,7 @@ public class CameraActivity extends AppCompatActivity {
         openDoor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                urlOn = "https://cloud.arest.io/FYPUMT/digital/17/1";
+                urlOn = ddns + "/digital/25/1";
                 RequestUrlGlobal(urlOn);
                 Toast.makeText(CameraActivity.this, "Door is Unlocked!", Toast.LENGTH_SHORT).show();
                 //Time delay for 500 milli seconds
@@ -55,7 +56,7 @@ public class CameraActivity extends AppCompatActivity {
                     public void run() {
                         //Do something after 100ms
 
-                        urlOff = "https://cloud.arest.io/FYPUMT/digital/17/0";
+                        urlOff = ddns + "/digital/25/0";
                         RequestUrlGlobal(urlOff);
                     }
                 }, 1000);
