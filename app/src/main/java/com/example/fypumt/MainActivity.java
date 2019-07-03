@@ -27,14 +27,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     Switch Switch1, Switch2,Switch3,Switch4,Switch5,Switch6;
     ImageButton cameraButton, sendSpeed;
-    String urlGlobal, urlLocal, fanLocal;
+    String urlGlobal, urlLocal, fanLocal, fanGlobal;
     TextView textView;
     GridLayout gridLayout;
 
     String switchData1, switchData2, switchData3, switchData4, switchData5, switchData6, fanSpeed;
 
-    String ddns = "http://umtfyp.ddns.net";
-    String arest = "https://cloud.arest.io/FYPUMT";
+    String thingspeek = "https://api.thingspeak.com/update?key=VWGY0NZSR0X2FQIX&field1=";
     String localIp = "http://192.168.1.25";
     //ImageView imageView;
     private int speed;
@@ -167,78 +166,98 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
     private void speed0(){
-        fanLocal = ddns + "/digital/6/0";
-        //fanLocal = localIp + "/digital/6/0";
+        fanLocal = localIp + "/digital/6/0";
+        //fanGlobal = thingspeek + "60";
         RequestUrlLocal(fanLocal);
-        fanLocal = ddns + "/digital/13/0";
-        //fanLocal = localIp + "/digital/13/0";
+        //RequestUrlGlobal(fanGlobal);
+        fanLocal = localIp + "/digital/13/0";
+        //fanGlobal = thingspeek + "130";
         RequestUrlLocal(fanLocal);
-        fanLocal = ddns + "/digital/19/0";
-        //fanLocal = localIp + "/digital/19/0";
+        //RequestUrlGlobal(fanGlobal);
+        fanLocal = localIp + "/digital/19/0";
+        //fanGlobal = thingspeek + "190";
         RequestUrlLocal(fanLocal);
-        fanLocal = ddns + "/digital/26/0";
-        //fanLocal = localIp + "/digital/26/0";
+        //RequestUrlGlobal(fanGlobal);
+        fanLocal = localIp + "/digital/26/0";
+        //fanGlobal = thingspeek + "260";
         RequestUrlLocal(fanLocal);
+        //RequestUrlGlobal(fanGlobal);
         SaveData();
     }
     private void speed1(){
-        fanLocal = ddns + "/digital/6/1";
-        //fanLocal = localIp + "/digital/6/1";
+        fanLocal = localIp + "/digital/6/1";
+        //fanGlobal = thingspeek + "61";
         RequestUrlLocal(fanLocal);
-        fanLocal = ddns + "/digital/13/0";
-        //fanLocal = localIp + "/digital/13/0";
+        //RequestUrlGlobal(fanGlobal);
+        fanLocal = localIp + "/digital/13/0";
+        //fanGlobal = thingspeek + "130";
         RequestUrlLocal(fanLocal);
-        fanLocal = ddns + "/digital/19/0";
-        //fanLocal = localIp + "/digital/19/0";
+        //RequestUrlGlobal(fanGlobal);
+        fanLocal = localIp + "/digital/19/0";
+        //fanGlobal = thingspeek + "190";
         RequestUrlLocal(fanLocal);
-        fanLocal = ddns + "/digital/26/0";
-        //fanLocal = localIp + "/digital/26/0";
+        //RequestUrlGlobal(fanGlobal);
+        fanLocal = localIp + "/digital/26/0";
+        //fanGlobal = thingspeek + "260";
         RequestUrlLocal(fanLocal);
+        //RequestUrlGlobal(fanGlobal);
         SaveData();
     }
     private void speed2(){
-        fanLocal = ddns + "/digital/6/1";
-        //fanLocal = localIp + "/digital/6/1";
+        fanLocal = localIp + "/digital/6/1";
+        //fanGlobal = thingspeek + "61";
         RequestUrlLocal(fanLocal);
-        fanLocal = ddns + "/digital/13/1";
-        //fanLocal = localIp + "/digital/13/1";
+        //RequestUrlGlobal(fanGlobal);
+        fanLocal = localIp + "/digital/13/1";
+        //fanGlobal = thingspeek + "131";
         RequestUrlLocal(fanLocal);
-        fanLocal = ddns + "/digital/19/0";
-        //fanLocal = localIp + "/digital/19/0";
+        //RequestUrlGlobal(fanGlobal);
+        fanLocal = localIp + "/digital/19/0";
+        //fanGlobal = thingspeek + "190";
         RequestUrlLocal(fanLocal);
-        fanLocal = ddns + "/digital/26/0";
-        //fanLocal = localIp + "/digital/26/0";
+        //RequestUrlGlobal(fanGlobal);
+        fanLocal = localIp + "/digital/26/0";
+        //fanGlobal = thingspeek + "260";
         RequestUrlLocal(fanLocal);
+        //RequestUrlGlobal(fanGlobal);
         SaveData();
     }
     private void speed3(){
-        fanLocal = ddns + "/digital/6/1";
-        //fanLocal = localIp + "/digital/6/1";
+        fanLocal = localIp + "/digital/6/1";
+        //fanGlobal = thingspeek + "61";
         RequestUrlLocal(fanLocal);
-        fanLocal = ddns + "/digital/13/1";
-        //fanLocal = localIp + "/digital/13/1";
+        //RequestUrlGlobal(fanGlobal);
+        fanLocal = localIp + "/digital/13/1";
+        //fanGlobal = thingspeek + "131";
         RequestUrlLocal(fanLocal);
-        fanLocal = ddns + "/digital/19/1";
-        //fanLocal = localIp + "/digital/19/1";
+        //RequestUrlGlobal(fanGlobal);
+        fanLocal = localIp + "/digital/19/1";
+        //fanGlobal = thingspeek + "191";
         RequestUrlLocal(fanLocal);
-        //fanLocal = localIp + "/digital/26/0";
-        fanLocal = ddns + "/digital/26/0";
+        //RequestUrlGlobal(fanGlobal);
+        //fanGlobal = thingspeek + "260";
+        fanLocal = localIp + "/digital/26/0";
         RequestUrlLocal(fanLocal);
+        //RequestUrlGlobal(fanGlobal);
         SaveData();
     }
     private void speed4(){
-        fanLocal = ddns + "/digital/6/1";
-        //fanLocal = localIp + "/digital/6/1";
+        fanLocal = localIp + "/digital/6/1";
+        //fanGlobal = thingspeek + "61";
         RequestUrlLocal(fanLocal);
-        fanLocal = ddns + "/digital/13/1";
-        //fanLocal = localIp + "/digital/13/1";
+        //RequestUrlGlobal(fanGlobal);
+        fanLocal = localIp + "/digital/13/1";
+        //fanGlobal = thingspeek + "131";
         RequestUrlLocal(fanLocal);
-        fanLocal = ddns + "/digital/19/1";
-        //fanLocal = localIp + "/digital/19/1";
+        //RequestUrlGlobal(fanGlobal);
+        fanLocal = localIp + "/digital/19/1";
+        //fanGlobal = thingspeek + "191";
         RequestUrlLocal(fanLocal);
-        fanLocal = ddns + "/digital/26/1";
-        //fanLocal = localIp + "/digital/26/1";
+        //RequestUrlGlobal(fanGlobal);
+        fanLocal = localIp + "/digital/26/1";
+        //fanGlobal = thingspeek + "261";
         RequestUrlLocal(fanLocal);
+        //RequestUrlGlobal(fanGlobal);
         SaveData();
     }
 
@@ -303,10 +322,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 default:
                     Toast.makeText(this, "Default", Toast.LENGTH_SHORT).show();
         }
-        RequesturlGlobal(urlGlobal);
+        RequestUrlGlobal(urlGlobal);
         RequestUrlLocal(urlLocal);
     }
-    public void RequesturlGlobal(String urlGlobal){
+    public void RequestUrlGlobal(String urlGlobal){
         OkHttpClient okHttpClient = new OkHttpClient();
         Request request = new Request.Builder().url(urlGlobal).build();
         okHttpClient.newCall(request).enqueue(new Callback() {
@@ -347,13 +366,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         CardView cardView1 = (CardView) gridLayout.getChildAt(0);
         if (condition.equals("ON"))
         {
-            urlGlobal = ddns + "/digital/17/1";
+            urlGlobal = thingspeek + "171";
             urlLocal = localIp + "/digital/17/1";
             cardView1.setCardBackgroundColor(Color.parseColor("#008080"));
             Toast.makeText(this, "Bulb ON", Toast.LENGTH_SHORT).show();
         }
         else if (condition.equals("OFF")){
-            urlGlobal = ddns + "/digital/17/0";
+            urlGlobal = thingspeek + "170";
             urlLocal = localIp + "/digital/17/0";
             cardView1.setCardBackgroundColor(Color.parseColor("#FFFFFF"));
             Toast.makeText(this, "Bulb OFF", Toast.LENGTH_SHORT).show();
@@ -364,14 +383,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         CardView cardView2 = (CardView) gridLayout.getChildAt(1);
         if (condition.equals("ON"))
         {
-            urlGlobal = ddns + "/digital/27/1";
+            urlGlobal = thingspeek + "271";
             urlLocal = localIp + "/digital/27/1";
             cardView2.setCardBackgroundColor(Color.parseColor("#008080"));
             Toast.makeText(this, "Tube Light ON", Toast.LENGTH_SHORT).show();
         }
         else if (condition.equals("OFF"))
         {
-            urlGlobal = ddns + "/digital/27/0";
+            urlGlobal = thingspeek + "270";
             urlLocal = localIp + "/digital/27/0";
             cardView2.setCardBackgroundColor(Color.parseColor("#FFFFFF"));
             Toast.makeText(this, "Tube Light OFF", Toast.LENGTH_SHORT).show();
@@ -381,12 +400,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void Switch3(String condition){
         CardView cardView3 = (CardView) gridLayout.getChildAt(2);
         if (condition.equals("ON")){
-            urlGlobal = ddns + "/digital/22/1";
+            urlGlobal = thingspeek + "221";
             urlLocal = localIp + "/digital/22/1";
             cardView3.setCardBackgroundColor(Color.parseColor("#008080"));
             Toast.makeText(this, "Table Lamp ON", Toast.LENGTH_SHORT).show();
         }else if (condition.equals("OFF")){
-            urlGlobal = ddns + "/digital/22/0";
+            urlGlobal = thingspeek + "220";
             urlLocal = localIp + "/digital/22/0";
             cardView3.setCardBackgroundColor(Color.parseColor("#FFFFFF"));
             Toast.makeText(this, "Table Lamp OFF", Toast.LENGTH_SHORT).show();
@@ -395,12 +414,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void Switch4(String condition){
         CardView cardView4 = (CardView) gridLayout.getChildAt(3);
         if (condition.equals("ON")){
-            urlGlobal = ddns + "/digital/16/1";
+            urlGlobal = thingspeek + "161";
             urlLocal = localIp + "/digital/16/1";
             cardView4.setCardBackgroundColor(Color.parseColor("#008080"));
             Toast.makeText(this, "Exhaust ON", Toast.LENGTH_SHORT).show();
         }else if(condition.equals("OFF")){
-            urlGlobal = ddns + "/digital/16/0";
+            urlGlobal = thingspeek + "160";
             urlLocal = localIp + "/digital/16/0";
             cardView4.setCardBackgroundColor(Color.parseColor("#FFFFFF"));
             Toast.makeText(this, "Exhaust OFF", Toast.LENGTH_SHORT).show();
@@ -409,12 +428,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void Switch5(String condition){
         CardView cardView5 = (CardView) gridLayout.getChildAt(4);
         if (condition.equals("ON")){
-            urlGlobal = ddns + "/digital/20/1";
+            urlGlobal = thingspeek + "201";
             urlLocal = localIp + "/digital/20/1";
             cardView5.setCardBackgroundColor(Color.parseColor("#008080"));
             Toast.makeText(this, "Television ON", Toast.LENGTH_SHORT).show();
         }else if (condition.equals("OFF")){
-            urlGlobal = ddns + "/digital/20/0";
+            urlGlobal = thingspeek + "200";
             urlLocal = localIp + "/digital/20/0";
             cardView5.setCardBackgroundColor(Color.parseColor("#FFFFFF"));
             Toast.makeText(this, "Television OFF", Toast.LENGTH_SHORT).show();
@@ -423,12 +442,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void Switch6(String condition){
         CardView cardView6 = (CardView) gridLayout.getChildAt(5);
         if (condition.equals("ON")){
-            urlGlobal = ddns + "/digital/21/1";
+            urlGlobal = thingspeek + "211";
             urlLocal = localIp + "/digital/21/1";
             cardView6.setCardBackgroundColor(Color.parseColor("#008080"));
             Toast.makeText(this, "Heater ON", Toast.LENGTH_SHORT).show();
         }else if (condition.equals("OFF")){
-            urlGlobal = ddns + "/digital/21/0";
+            urlGlobal = thingspeek + "210";
             urlLocal = localIp + "/digital/21/0";
             cardView6.setCardBackgroundColor(Color.parseColor("#FFFFFF"));
             Toast.makeText(this, "Heater OFF", Toast.LENGTH_SHORT).show();

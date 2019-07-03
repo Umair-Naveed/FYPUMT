@@ -25,12 +25,13 @@ public class CameraActivity extends AppCompatActivity {
 
     WebView webview;
     String videoURL = "http://umtfyp.ddns.net:8081/";
+    String videoLocal = "http://192.168.1.25:8081/";
 
     GridLayout gridLayout;
 
     String urlOn, urlOff;
-    String ddns = "http://umtfyp.ddns.net";
-    String arest = "https://cloud.arest.io/FYPUMT";
+    String local = "http://192.168.1.25";
+    String global = "https://api.thingspeak.com/update?key=VWGY0NZSR0X2FQIX&field1=25";
     ImageButton openDoor, reload;
 
     @Override
@@ -46,8 +47,9 @@ public class CameraActivity extends AppCompatActivity {
         openDoor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                urlOn = ddns + "/digital/25/1";
-                RequestUrlGlobal(urlOn);
+                //urlOn = global + "1";
+                urlOn = local + "/digital/25/1";
+                RequestUrl(urlOn);
                 Toast.makeText(CameraActivity.this, "Door is Unlocked!", Toast.LENGTH_SHORT).show();
                 //Time delay for 500 milli seconds
                 final Handler handler = new Handler();
@@ -55,9 +57,9 @@ public class CameraActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         //Do something after 100ms
-
-                        urlOff = ddns + "/digital/25/0";
-                        RequestUrlGlobal(urlOff);
+                        //urlOff = global + "0";
+                        urlOff = local + "/digital/25/0";
+                        RequestUrl(urlOff);
                     }
                 }, 1000);
 
@@ -80,7 +82,7 @@ public class CameraActivity extends AppCompatActivity {
         set.setBuiltInZoomControls(true);
         webview.loadUrl(videoURL);
     }
-    public void RequestUrlGlobal(String urlGlobal){
+    public void RequestUrl(String urlGlobal){
         OkHttpClient okHttpClient = new OkHttpClient();
         Request request = new Request.Builder().url(urlGlobal).build();
         okHttpClient.newCall(request).enqueue(new Callback() {
