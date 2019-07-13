@@ -322,7 +322,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 default:
                     Toast.makeText(this, "Default", Toast.LENGTH_SHORT).show();
         }
-        RequestUrlGlobal(urlGlobal);
+        //RequestUrlGlobal(urlGlobal);
         RequestUrlLocal(urlLocal);
     }
     public void RequestUrlGlobal(String urlGlobal){
@@ -442,13 +442,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void Switch6(String condition){
         CardView cardView6 = (CardView) gridLayout.getChildAt(5);
         if (condition.equals("ON")){
-            urlGlobal = thingspeek + "211";
-            urlLocal = localIp + "/digital/21/1";
+            urlGlobal = thingspeek + "181";
+            urlLocal = localIp + "/digital/18/1";
             cardView6.setCardBackgroundColor(Color.parseColor("#008080"));
             Toast.makeText(this, "Heater ON", Toast.LENGTH_SHORT).show();
         }else if (condition.equals("OFF")){
-            urlGlobal = thingspeek + "210";
-            urlLocal = localIp + "/digital/21/0";
+            urlGlobal = thingspeek + "180";
+            urlLocal = localIp + "/digital/18/0";
             cardView6.setCardBackgroundColor(Color.parseColor("#FFFFFF"));
             Toast.makeText(this, "Heater OFF", Toast.LENGTH_SHORT).show();
         }
