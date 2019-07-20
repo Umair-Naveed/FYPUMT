@@ -13,7 +13,11 @@ import android.widget.GridLayout;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.kosalgeek.asynctask.AsyncResponse;
+import com.kosalgeek.asynctask.PostResponseAsyncTask;
+
 import java.io.IOException;
+import java.util.HashMap;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -21,15 +25,15 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class CameraActivity extends AppCompatActivity {
+public class CameraActivity extends AppCompatActivity implements AsyncResponse {
 
     WebView webview;
     String videoURL = "http://umtfyp.ddns.net:8081/";
-    String videoLocal = "http://192.168.1.25:8081/";
+    String videoLocal = "http://192.168.8.25:8081/";
 
     GridLayout gridLayout;
 
-    String urlOn, urlOff;
+    String urlOn, urlOff, camera;
     String local = "http://192.168.1.25";
     String global = "https://api.thingspeak.com/update?key=VWGY0NZSR0X2FQIX&field1=25";
     ImageButton openDoor, reload;
@@ -49,7 +53,9 @@ public class CameraActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //urlOn = global + "1";
                 urlOn = local + "/digital/25/1";
-                RequestUrl(urlOn);
+                //RequestUrl(urlOn);
+                camera = "ON";
+                GenAsync();
                 Toast.makeText(CameraActivity.this, "Door is Unlocked!", Toast.LENGTH_SHORT).show();
                 //Time delay for 500 milli seconds
                 final Handler handler = new Handler();
@@ -59,7 +65,9 @@ public class CameraActivity extends AppCompatActivity {
                         //Do something after 100ms
                         //urlOff = global + "0";
                         urlOff = local + "/digital/25/0";
-                        RequestUrl(urlOff);
+                        //RequestUrl(urlOff);
+                        camera = "OFF";
+                        GenAsync();
                     }
                 }, 1000);
 
@@ -80,7 +88,7 @@ public class CameraActivity extends AppCompatActivity {
         WebSettings set = webview.getSettings();
         set.setJavaScriptEnabled(true);
         set.setBuiltInZoomControls(true);
-        webview.loadUrl(videoURL);
+        webview.loadUrl(videoLocal);
     }
     public void RequestUrl(String url){
         OkHttpClient okHttpClient = new OkHttpClient();
@@ -111,5 +119,23 @@ public class CameraActivity extends AppCompatActivity {
 
             }
         }, time);
+    }
+
+    public void GenAsync(){
+        try {
+
+            HashMap postData = new HashMap();
+            postData.put("camera", camera);
+            PostResponseAsyncTask task = new PostResponseAsyncTask(this, postData);
+            task.execute("http://192.168.8.25/ControllSwitches.php");
+        }
+        catch (ArrayIndexOutOfBoundsException e){
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void processFinish(String s) {
+
     }
 }
