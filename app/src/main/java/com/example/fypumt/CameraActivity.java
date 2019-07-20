@@ -82,9 +82,9 @@ public class CameraActivity extends AppCompatActivity {
         set.setBuiltInZoomControls(true);
         webview.loadUrl(videoURL);
     }
-    public void RequestUrl(String urlGlobal){
+    public void RequestUrl(String url){
         OkHttpClient okHttpClient = new OkHttpClient();
-        Request request = new Request.Builder().url(urlGlobal).build();
+        Request request = new Request.Builder().url(url).build();
         okHttpClient.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {

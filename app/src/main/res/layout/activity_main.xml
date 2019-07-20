@@ -43,7 +43,6 @@ tools:context=".MainActivity">
         android:columnCount="2"
         android:rowCount="6"
         android:alignmentMode="alignMargins"
-        android:columnOrderPreserved="false"
         android:layout_weight="7"
         android:layout_width="match_parent"
         android:layout_height="0dp"

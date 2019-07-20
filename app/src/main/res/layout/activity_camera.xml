@@ -17,11 +17,8 @@
         android:id="@+id/cameraGrid"
         android:columnCount="2"
         android:rowCount="1"
-        android:alignmentMode="alignMargins"
-        android:columnOrderPreserved="false"
         android:layout_weight="7"
         android:layout_width="match_parent"
-
         android:padding="14dp">
         <androidx.cardview.widget.CardView
             android:layout_width="0dp"
@@ -57,7 +54,7 @@
                     android:text="Open Door"
                     android:textAlignment="center"
                     android:textColor="@android:color/black"
-                    android:textSize="18sp"
+                    android:textSize="18dp"
                     android:textStyle="bold" />
 
 

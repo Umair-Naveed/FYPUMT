@@ -14,16 +14,21 @@ import android.widget.ImageButton;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.kosalgeek.asynctask.AsyncResponse;
+import com.kosalgeek.asynctask.PostResponseAsyncTask;
 import com.sdsmdg.harjot.crollerTest.Croller;
 import com.sdsmdg.harjot.crollerTest.OnCrollerChangeListener;
 import java.io.IOException;
+import java.util.HashMap;
+
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements AsyncResponse, View.OnClickListener {
 
     Switch Switch1, Switch2,Switch3,Switch4,Switch5,Switch6;
     ImageButton cameraButton, sendSpeed;
@@ -157,6 +162,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     speed4();
 
                 Toast.makeText(MainActivity.this, "Fan Speed Sent", Toast.LENGTH_SHORT).show();
+                GenAsync();
             }
         });
 
@@ -323,7 +329,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     Toast.makeText(this, "Default", Toast.LENGTH_SHORT).show();
         }
         //RequestUrlGlobal(urlGlobal);
-        RequestUrlLocal(urlLocal);
+        //RequestUrlLocal(urlLocal);
+        GenAsync();
+
     }
     public void RequestUrlGlobal(String urlGlobal){
         OkHttpClient okHttpClient = new OkHttpClient();
@@ -512,5 +520,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Switch6.setChecked(false);
         croller.setProgress(speed + 1);
 
+    }
+
+    @Override
+    public void processFinish(String s) {
+
+    }
+    public void GenAsync(){
+        try {
+
+            HashMap postData = new HashMap();
+            postData.put("Switch1", switchData1);
+            postData.put("Switch2", switchData2);
+            postData.put("Switch3", switchData3);
+            postData.put("Switch4", switchData4);
+            postData.put("Switch5", switchData5);
+            postData.put("Switch6", switchData6);
+            postData.put("speed", speed + "");
+            PostResponseAsyncTask task = new PostResponseAsyncTask(this, postData);
+            task.execute("http://192.168.8.25/ControllSwitches.php");
+        }
+        catch (ArrayIndexOutOfBoundsException e){
+            e.printStackTrace();
+        }
     }
 }

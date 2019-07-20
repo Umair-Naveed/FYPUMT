@@ -17,7 +17,7 @@ public class FadeOut extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                //Do something after 100ms
+                //Do something after 2000ms
                 Intent intent = new Intent(FadeOut.this, MainActivity.class);
                 startActivity(intent);
             }
