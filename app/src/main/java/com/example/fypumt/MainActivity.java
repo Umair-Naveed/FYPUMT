@@ -1,13 +1,19 @@
 package com.example.fypumt;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Handler;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
+
 import androidx.cardview.widget.CardView;
+
 import android.view.View;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
@@ -19,7 +25,14 @@ import com.kosalgeek.asynctask.AsyncResponse;
 import com.kosalgeek.asynctask.PostResponseAsyncTask;
 import com.sdsmdg.harjot.crollerTest.Croller;
 import com.sdsmdg.harjot.crollerTest.OnCrollerChangeListener;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.HashMap;
 
 import okhttp3.Call;
@@ -30,29 +43,33 @@ import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity implements AsyncResponse, View.OnClickListener {
 
-    Switch Switch1, Switch2,Switch3,Switch4,Switch5,Switch6;
+    Switch Switch1, Switch2, Switch3, Switch4, Switch5, Switch6;
     ImageButton cameraButton, sendSpeed;
-    String urlGlobal, urlLocal, fanLocal, fanGlobal;
+    String urlGlobal, fanGlobal;
     TextView textView;
     GridLayout gridLayout;
 
+    private String responseUrl;
     String switchData1, switchData2, switchData3, switchData4, switchData5, switchData6, fanSpeed;
 
-    String thingspeek = "https://api.thingspeak.com/update?key=VWGY0NZSR0X2FQIX&field1=";
-    String localIp = "http://192.168.1.25";
-    //ImageView imageView;
+    String thingspeek1 = "https://api.thingspeak.com/update?key=VWGY0NZSR0X2FQIX&field1=";
+    String thingspeek2 = "https://api.thingspeak.com/update?key=4FGSQSDCDJC0C2AJ&field1=";
+    String thingspeek3 = "https://api.thingspeak.com/update?key=ONI9MC3W83M9QLLZ&field1=";
+    String thingspeek4 = "https://api.thingspeak.com/update?key=TZ4AJEHKLTAHHUSB&field1=";
+    String thingspeek5 = "https://api.thingspeak.com/update?key=Y1A3PCH4SPLT5FZK&field1=";
+    String thingspeek6 = "https://api.thingspeak.com/update?key=HU62REVZXEIFPCPX&field1=";
+    String fanspeed1 = "https://api.thingspeak.com/update?key=GV0G001K2OZH05FD&field1=";
+    String fanspeed2 = "https://api.thingspeak.com/update?key=FVH7VZL9E5U5PEVN&field1=";
+    String fanspeed3 = "https://api.thingspeak.com/update?key=9OOK7EGB5LQEPZ0U&field1=";
+    String fanspeed4 = "https://api.thingspeak.com/update?key=IV5EEWU4B5PZS74R&field1=";
     private int speed;
 
     private Croller croller;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
-        //imageView = findViewById(R.id.imgvw);
-        //Animation animFadeOut = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fade_out);
-        //imageView.startAnimation(animFadeOut);
 
         gridLayout = findViewById(R.id.mainGrid);
 
@@ -60,36 +77,27 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse, Vi
         croller.isEnabled();
 
         textView = findViewById(R.id.fanSpeedText);
-        //To set the position of croller
-        //croller.setProgress(25);
         croller.setOnCrollerChangeListener(new OnCrollerChangeListener() {
             @Override
             public void onProgressChanged(Croller croller, int progress) {
                 int circleSeekBar = progress - 1;
                 fanSpeed = Integer.toString(circleSeekBar);
                 textView.setText(fanSpeed);
-                if (circleSeekBar >= 0 && circleSeekBar <= 5){
+                if (circleSeekBar >= 0 && circleSeekBar <= 5) {
                     speed = 0;
-                }
-                else if (circleSeekBar > 5 && circleSeekBar <= 25){
+                } else if (circleSeekBar > 5 && circleSeekBar <= 25) {
                     speed = 25;
-                }
-                else if (circleSeekBar > 25 && circleSeekBar <= 50){
+                } else if (circleSeekBar > 25 && circleSeekBar <= 50) {
                     speed = 50;
-                }
-                else if (circleSeekBar > 50 && circleSeekBar <= 75){
+                } else if (circleSeekBar > 50 && circleSeekBar <= 75) {
                     speed = 75;
-                }
-                else if (circleSeekBar > 75){
+                } else if (circleSeekBar > 75) {
                     speed = 100;
                 }
             }
-
             @Override
             public void onStartTrackingTouch(Croller croller) {
-
             }
-
             @Override
             public void onStopTrackingTouch(Croller croller) {
 
@@ -114,23 +122,10 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse, Vi
         Switch5.setOnClickListener(this);
         Switch6.setOnClickListener(this);
 
-        //Switch1.setChecked(true);
         cameraButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CardView cardView = (CardView) gridLayout.getChildAt(7);
-                cardView.setCardBackgroundColor(Color.parseColor("#008080"));
-                final Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        //Do something after 50ms
-                        CardView cardView1 = (CardView) gridLayout.getChildAt(7);
-                        cardView1.setCardBackgroundColor(Color.parseColor("#FFFFFF"));
-
-                    }
-                }, 50);
-
+                changeButtonColor(7, 50);
                 OpenCameraActivity();
             }
         });
@@ -138,139 +133,97 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse, Vi
         sendSpeed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CardView cardView = (CardView) gridLayout.getChildAt(6);
-                cardView.setCardBackgroundColor(Color.parseColor("#008080"));
+                changeButtonColor(6, 50);
                 final Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        //Do something after 100ms
-                        CardView cardView1 = (CardView) gridLayout.getChildAt(6);
-                        cardView1.setCardBackgroundColor(Color.parseColor("#FFFFFF"));
-
+                        changeButtonColor(6, 50);
                     }
                 }, 50);
-                if(speed == 0)
+                if (speed == 0)
                     speed0();
-                else if(speed == 25)
+                else if (speed == 25)
                     speed1();
-                else if(speed == 50)
+                else if (speed == 50)
                     speed2();
-                else if(speed == 75)
+                else if (speed == 75)
                     speed3();
-                else if(speed == 100)
+                else if (speed == 100)
                     speed4();
-
+                SaveData();
                 Toast.makeText(MainActivity.this, "Fan Speed Sent", Toast.LENGTH_SHORT).show();
-                GenAsync();
+                //GenAsync();
             }
         });
 
-
         //To receive data from myData
-        FetchData();
+        (new Handler()).postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                FetchData();
+            }
+        }, 1500);
+    }
 
+    private void speed0() {
+        fanGlobal = fanspeed1 + "60";
+        RequestUrlGlobal(fanGlobal);
+        fanGlobal = fanspeed2 + "130";
+        RequestUrlGlobal(fanGlobal);
+        fanGlobal = fanspeed3 + "190";
+        RequestUrlGlobal(fanGlobal);
+        fanGlobal = fanspeed4 + "260";
+        RequestUrlGlobal(fanGlobal);
     }
-    private void speed0(){
-        fanLocal = localIp + "/digital/6/0";
-        //fanGlobal = thingspeek + "60";
-        RequestUrlLocal(fanLocal);
-        //RequestUrlGlobal(fanGlobal);
-        fanLocal = localIp + "/digital/13/0";
-        //fanGlobal = thingspeek + "130";
-        RequestUrlLocal(fanLocal);
-        //RequestUrlGlobal(fanGlobal);
-        fanLocal = localIp + "/digital/19/0";
-        //fanGlobal = thingspeek + "190";
-        RequestUrlLocal(fanLocal);
-        //RequestUrlGlobal(fanGlobal);
-        fanLocal = localIp + "/digital/26/0";
-        //fanGlobal = thingspeek + "260";
-        RequestUrlLocal(fanLocal);
-        //RequestUrlGlobal(fanGlobal);
-        SaveData();
+
+    private void speed1() {
+        fanGlobal = fanspeed1 + "61";
+        RequestUrlGlobal(fanGlobal);
+        fanGlobal = fanspeed2 + "130";
+        RequestUrlGlobal(fanGlobal);
+        fanGlobal = fanspeed3 + "190";
+        RequestUrlGlobal(fanGlobal);
+        fanGlobal = fanspeed4 + "260";
+        RequestUrlGlobal(fanGlobal);
     }
-    private void speed1(){
-        fanLocal = localIp + "/digital/6/1";
-        //fanGlobal = thingspeek + "61";
-        RequestUrlLocal(fanLocal);
-        //RequestUrlGlobal(fanGlobal);
-        fanLocal = localIp + "/digital/13/0";
-        //fanGlobal = thingspeek + "130";
-        RequestUrlLocal(fanLocal);
-        //RequestUrlGlobal(fanGlobal);
-        fanLocal = localIp + "/digital/19/0";
-        //fanGlobal = thingspeek + "190";
-        RequestUrlLocal(fanLocal);
-        //RequestUrlGlobal(fanGlobal);
-        fanLocal = localIp + "/digital/26/0";
-        //fanGlobal = thingspeek + "260";
-        RequestUrlLocal(fanLocal);
-        //RequestUrlGlobal(fanGlobal);
-        SaveData();
+
+    private void speed2() {
+        fanGlobal = fanspeed1 + "61";
+        RequestUrlGlobal(fanGlobal);
+        fanGlobal = fanspeed2 + "131";
+        RequestUrlGlobal(fanGlobal);
+        fanGlobal = fanspeed3 + "190";
+        RequestUrlGlobal(fanGlobal);
+        fanGlobal = fanspeed4 + "260";
+        RequestUrlGlobal(fanGlobal);
     }
-    private void speed2(){
-        fanLocal = localIp + "/digital/6/1";
-        //fanGlobal = thingspeek + "61";
-        RequestUrlLocal(fanLocal);
-        //RequestUrlGlobal(fanGlobal);
-        fanLocal = localIp + "/digital/13/1";
-        //fanGlobal = thingspeek + "131";
-        RequestUrlLocal(fanLocal);
-        //RequestUrlGlobal(fanGlobal);
-        fanLocal = localIp + "/digital/19/0";
-        //fanGlobal = thingspeek + "190";
-        RequestUrlLocal(fanLocal);
-        //RequestUrlGlobal(fanGlobal);
-        fanLocal = localIp + "/digital/26/0";
-        //fanGlobal = thingspeek + "260";
-        RequestUrlLocal(fanLocal);
-        //RequestUrlGlobal(fanGlobal);
-        SaveData();
+
+    private void speed3() {
+        fanGlobal = fanspeed1 + "61";
+        RequestUrlGlobal(fanGlobal);
+        fanGlobal = fanspeed2 + "131";
+        RequestUrlGlobal(fanGlobal);
+        fanGlobal = fanspeed3 + "191";
+        RequestUrlGlobal(fanGlobal);
+        fanGlobal = fanspeed4 + "260";
+        RequestUrlGlobal(fanGlobal);
     }
-    private void speed3(){
-        fanLocal = localIp + "/digital/6/1";
-        //fanGlobal = thingspeek + "61";
-        RequestUrlLocal(fanLocal);
-        //RequestUrlGlobal(fanGlobal);
-        fanLocal = localIp + "/digital/13/1";
-        //fanGlobal = thingspeek + "131";
-        RequestUrlLocal(fanLocal);
-        //RequestUrlGlobal(fanGlobal);
-        fanLocal = localIp + "/digital/19/1";
-        //fanGlobal = thingspeek + "191";
-        RequestUrlLocal(fanLocal);
-        //RequestUrlGlobal(fanGlobal);
-        //fanGlobal = thingspeek + "260";
-        fanLocal = localIp + "/digital/26/0";
-        RequestUrlLocal(fanLocal);
-        //RequestUrlGlobal(fanGlobal);
-        SaveData();
-    }
-    private void speed4(){
-        fanLocal = localIp + "/digital/6/1";
-        //fanGlobal = thingspeek + "61";
-        RequestUrlLocal(fanLocal);
-        //RequestUrlGlobal(fanGlobal);
-        fanLocal = localIp + "/digital/13/1";
-        //fanGlobal = thingspeek + "131";
-        RequestUrlLocal(fanLocal);
-        //RequestUrlGlobal(fanGlobal);
-        fanLocal = localIp + "/digital/19/1";
-        //fanGlobal = thingspeek + "191";
-        RequestUrlLocal(fanLocal);
-        //RequestUrlGlobal(fanGlobal);
-        fanLocal = localIp + "/digital/26/1";
-        //fanGlobal = thingspeek + "261";
-        RequestUrlLocal(fanLocal);
-        //RequestUrlGlobal(fanGlobal);
-        SaveData();
+
+    private void speed4() {
+        fanGlobal = fanspeed1 + "61";
+        RequestUrlGlobal(fanGlobal);
+        fanGlobal = fanspeed2 + "131";
+        RequestUrlGlobal(fanGlobal);
+        fanGlobal = fanspeed3 + "191";
+        RequestUrlGlobal(fanGlobal);
+        fanGlobal = fanspeed4 + "261";
+        RequestUrlGlobal(fanGlobal);
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId())
-        {
+        switch (v.getId()) {
             case R.id.switch1:
 
                 if (Switch1.isChecked())
@@ -325,15 +278,15 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse, Vi
                 Switch6(switchData6);
                 SaveData();
                 break;
-                default:
-                    Toast.makeText(this, "Default", Toast.LENGTH_SHORT).show();
+            default:
+                Toast.makeText(this, "Default", Toast.LENGTH_SHORT).show();
         }
-        //RequestUrlGlobal(urlGlobal);
-        //RequestUrlLocal(urlLocal);
-        GenAsync();
+        RequestUrlGlobal(urlGlobal);
+        //GenAsync();
 
     }
-    public void RequestUrlGlobal(String urlGlobal){
+
+    public void RequestUrlGlobal(String urlGlobal) {
         OkHttpClient okHttpClient = new OkHttpClient();
         Request request = new Request.Builder().url(urlGlobal).build();
         okHttpClient.newCall(request).enqueue(new Callback() {
@@ -348,121 +301,80 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse, Vi
             }
         });
     }
-    public void RequestUrlLocal(String urlLocal){
-        OkHttpClient okHttpClient = new OkHttpClient();
-        Request request = new Request.Builder().url(urlLocal).build();
-        okHttpClient.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                e.printStackTrace();
-            }
 
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-
-            }
-        });
-    }
-
-    private void OpenCameraActivity()
-    {
+    private void OpenCameraActivity() {
         Intent intent = new Intent(this, CameraActivity.class);
         startActivity(intent);
     }
 
-    private void Switch1(String condition){
-        CardView cardView1 = (CardView) gridLayout.getChildAt(0);
-        if (condition.equals("ON"))
-        {
-            urlGlobal = thingspeek + "171";
-            urlLocal = localIp + "/digital/17/1";
-            cardView1.setCardBackgroundColor(Color.parseColor("#008080"));
-            Toast.makeText(this, "Bulb ON", Toast.LENGTH_SHORT).show();
+    private void Switch1(String condition) {
+        if (condition.equals("ON")) {
+            urlGlobal = thingspeek1 + "231";
+            changeButtonColor(0, "#008080");
+        } else if (condition.equals("OFF")) {
+            urlGlobal = thingspeek1 + "230";
+            changeButtonColor(0, "#FFFFFF");
         }
-        else if (condition.equals("OFF")){
-            urlGlobal = thingspeek + "170";
-            urlLocal = localIp + "/digital/17/0";
-            cardView1.setCardBackgroundColor(Color.parseColor("#FFFFFF"));
-            Toast.makeText(this, "Bulb OFF", Toast.LENGTH_SHORT).show();
-
-        }
-    }
-    private void Switch2(String condition){
-        CardView cardView2 = (CardView) gridLayout.getChildAt(1);
-        if (condition.equals("ON"))
-        {
-            urlGlobal = thingspeek + "271";
-            urlLocal = localIp + "/digital/27/1";
-            cardView2.setCardBackgroundColor(Color.parseColor("#008080"));
-            Toast.makeText(this, "Tube Light ON", Toast.LENGTH_SHORT).show();
-        }
-        else if (condition.equals("OFF"))
-        {
-            urlGlobal = thingspeek + "270";
-            urlLocal = localIp + "/digital/27/0";
-            cardView2.setCardBackgroundColor(Color.parseColor("#FFFFFF"));
-            Toast.makeText(this, "Tube Light OFF", Toast.LENGTH_SHORT).show();
-        }
-
-    }
-    private void Switch3(String condition){
-        CardView cardView3 = (CardView) gridLayout.getChildAt(2);
-        if (condition.equals("ON")){
-            urlGlobal = thingspeek + "221";
-            urlLocal = localIp + "/digital/22/1";
-            cardView3.setCardBackgroundColor(Color.parseColor("#008080"));
-            Toast.makeText(this, "Table Lamp ON", Toast.LENGTH_SHORT).show();
-        }else if (condition.equals("OFF")){
-            urlGlobal = thingspeek + "220";
-            urlLocal = localIp + "/digital/22/0";
-            cardView3.setCardBackgroundColor(Color.parseColor("#FFFFFF"));
-            Toast.makeText(this, "Table Lamp OFF", Toast.LENGTH_SHORT).show();
-        }
-    }
-    private void Switch4(String condition){
-        CardView cardView4 = (CardView) gridLayout.getChildAt(3);
-        if (condition.equals("ON")){
-            urlGlobal = thingspeek + "161";
-            urlLocal = localIp + "/digital/16/1";
-            cardView4.setCardBackgroundColor(Color.parseColor("#008080"));
-            Toast.makeText(this, "Exhaust ON", Toast.LENGTH_SHORT).show();
-        }else if(condition.equals("OFF")){
-            urlGlobal = thingspeek + "160";
-            urlLocal = localIp + "/digital/16/0";
-            cardView4.setCardBackgroundColor(Color.parseColor("#FFFFFF"));
-            Toast.makeText(this, "Exhaust OFF", Toast.LENGTH_SHORT).show();
-        }
-    }
-    private void Switch5(String condition){
-        CardView cardView5 = (CardView) gridLayout.getChildAt(4);
-        if (condition.equals("ON")){
-            urlGlobal = thingspeek + "201";
-            urlLocal = localIp + "/digital/20/1";
-            cardView5.setCardBackgroundColor(Color.parseColor("#008080"));
-            Toast.makeText(this, "Television ON", Toast.LENGTH_SHORT).show();
-        }else if (condition.equals("OFF")){
-            urlGlobal = thingspeek + "200";
-            urlLocal = localIp + "/digital/20/0";
-            cardView5.setCardBackgroundColor(Color.parseColor("#FFFFFF"));
-            Toast.makeText(this, "Television OFF", Toast.LENGTH_SHORT).show();
-        }
-    }
-    private void Switch6(String condition){
-        CardView cardView6 = (CardView) gridLayout.getChildAt(5);
-        if (condition.equals("ON")){
-            urlGlobal = thingspeek + "181";
-            urlLocal = localIp + "/digital/18/1";
-            cardView6.setCardBackgroundColor(Color.parseColor("#008080"));
-            Toast.makeText(this, "Heater ON", Toast.LENGTH_SHORT).show();
-        }else if (condition.equals("OFF")){
-            urlGlobal = thingspeek + "180";
-            urlLocal = localIp + "/digital/18/0";
-            cardView6.setCardBackgroundColor(Color.parseColor("#FFFFFF"));
-            Toast.makeText(this, "Heater OFF", Toast.LENGTH_SHORT).show();
-        }
+        showResponse("https://api.thingspeak.com/channels/814144/feeds/last.json");
     }
 
-    public void SaveData(){
+    private void Switch2(String condition) {
+        if (condition.equals("ON")) {
+            urlGlobal = thingspeek2 + "271";
+            changeButtonColor(1, "#008080");
+        } else if (condition.equals("OFF")) {
+            urlGlobal = thingspeek2 + "270";
+            changeButtonColor(1, "#FFFFFF");
+        }
+
+        showResponse("https://api.thingspeak.com/channels/830195/feeds/last.json");
+    }
+
+    private void Switch3(String condition) {
+        if (condition.equals("ON")) {
+            urlGlobal = thingspeek3 + "221";
+            changeButtonColor(2, "#008080");
+        } else if (condition.equals("OFF")) {
+            urlGlobal = thingspeek3 + "220";
+            changeButtonColor(2, "#FFFFFF");
+        }
+        showResponse("https://api.thingspeak.com/channels/830206/feeds/last.json");
+    }
+
+    private void Switch4(String condition) {
+        if (condition.equals("ON")) {
+            urlGlobal = thingspeek4 + "161";
+            changeButtonColor(3, "#008080");
+        } else if (condition.equals("OFF")) {
+            urlGlobal = thingspeek4 + "160";
+            changeButtonColor(3, "#FFFFFF");
+        }
+        showResponse("https://api.thingspeak.com/channels/830217/feeds/last.json");
+    }
+
+    private void Switch5(String condition) {
+        if (condition.equals("ON")) {
+            urlGlobal = thingspeek5 + "201";
+            changeButtonColor(4, "#008080");
+        } else if (condition.equals("OFF")) {
+            urlGlobal = thingspeek5 + "200";
+            changeButtonColor(4, "#FFFFFF");
+        }
+        showResponse("https://api.thingspeak.com/channels/832458/feeds/last.json");
+    }
+
+    private void Switch6(String condition) {
+        if (condition.equals("ON")) {
+            urlGlobal = thingspeek6 + "181";
+            changeButtonColor(5, "#008080");
+        } else if (condition.equals("OFF")) {
+            urlGlobal = thingspeek6 + "180";
+            changeButtonColor(5, "#FFFFFF");
+        }
+        showResponse("https://api.thingspeak.com/channels/832459/feeds/last.json");
+    }
+
+    public void SaveData() {
         SharedPreferences sharedPreferences = getSharedPreferences("MyData", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("switch1", switchData1);
@@ -472,7 +384,6 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse, Vi
         editor.putString("switch5", switchData5);
         editor.putString("switch6", switchData6);
         editor.putString("fanSpeed", fanSpeed);
-        //editor.commit();
         editor.apply();
     }
 
@@ -488,45 +399,52 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse, Vi
         switchData6 = sharedPreferences.getString("switch6", "");
         fanSpeed = sharedPreferences.getString("fanSpeed", "0");
         final int speed = Integer.parseInt(fanSpeed);
-        Switch1(switchData1);
-        Switch2(switchData2);
-        Switch3(switchData3);
-        Switch4(switchData4);
-        Switch5(switchData5);
-        Switch6(switchData6);
-        if (switchData1.equals("ON"))
-            Switch1.setChecked(true);
-        else
-            Switch1.setChecked(false);
-        if (switchData2.equals("ON"))
-            Switch2.setChecked(true);
-        else
-            Switch2.setChecked(false);
-        if (switchData3.equals("ON"))
-            Switch3.setChecked(true);
-        else
-            Switch3.setChecked(false);
-        if (switchData4.equals("ON"))
-            Switch4.setChecked(true);
-        else
-            Switch4.setChecked(false);
-        if (switchData5.equals("ON"))
-            Switch5.setChecked(true);
-        else
-            Switch5.setChecked(false);
-        if (switchData6.equals("ON"))
-            Switch6.setChecked(true);
-        else
-            Switch6.setChecked(false);
-        croller.setProgress(speed + 1);
+        if (switchData1.equals("ON")) {
+            changeButtonColor(0, "#008080");
+            Switch1.setChecked(true); }
+        else {
+            changeButtonColor(0, "#FFFFFF");
+            Switch1.setChecked(false); }
+        if (switchData2.equals("ON")) {
+            changeButtonColor(1, "#008080");
+            Switch2.setChecked(true); }
+        else {
+            changeButtonColor(1, "#FFFFFF");
+            Switch2.setChecked(false); }
+        if (switchData3.equals("ON")) {
+            changeButtonColor(2, "#008080");
+            Switch3.setChecked(true); }
+        else {
+            changeButtonColor(2, "#FFFFFF");
+            Switch3.setChecked(false); }
+        if (switchData4.equals("ON")) {
+            changeButtonColor(3, "#008080");
+            Switch4.setChecked(true); }
+        else {
+            changeButtonColor(3, "#FFFFFF");
+            Switch4.setChecked(false); }
+        if (switchData5.equals("ON")) {
+            changeButtonColor(4, "#008080");
+            Switch5.setChecked(true); }
+        else {
+            changeButtonColor(4, "#FFFFFF");
+            Switch5.setChecked(false); }
+        if (switchData6.equals("ON")) {
+            changeButtonColor(5, "#008080");
+            Switch6.setChecked(true); }
+        else {
+            changeButtonColor(5, "#FFFFFF");
+            Switch6.setChecked(false); }
+
+            croller.setProgress(speed + 1);
 
     }
 
     @Override
     public void processFinish(String s) {
-
     }
-    public void GenAsync(){
+
+    public void GenAsync() {
         try {
 
             HashMap postData = new HashMap();
@@ -539,9 +457,111 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse, Vi
             postData.put("speed", speed + "");
             PostResponseAsyncTask task = new PostResponseAsyncTask(this, postData);
             task.execute("http://192.168.8.25/ControllSwitches.php");
-        }
-        catch (ArrayIndexOutOfBoundsException e){
+        } catch (ArrayIndexOutOfBoundsException e) {
             e.printStackTrace();
         }
+    }
+
+    private void showResponse(String url) {
+        responseUrl = url;
+        (new Handler()).postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                new AsyncCaller().execute();
+            }
+        }, 3000);
+    }
+    private class AsyncCaller extends AsyncTask<Void, Void, Void> {
+        ProgressDialog pdLoading = new ProgressDialog(MainActivity.this);
+        String response;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pdLoading.setMessage("\tGetting response...");
+            pdLoading.show();
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+
+            StringBuilder stringBuilder = new StringBuilder();
+            try {
+                URL link = new URL(responseUrl);
+                HttpURLConnection urlConnection = (HttpURLConnection) link.openConnection();
+                urlConnection.setRequestMethod("GET");
+                urlConnection.connect();
+
+                InputStream inputStream = urlConnection.getInputStream();
+                byte[] buffer = new byte[8 * 1024];
+                int i = inputStream.read(buffer);
+                stringBuilder.append(new String(buffer, 0, i));
+            } catch (Exception ignored) {} catch (OutOfMemoryError ignored) {}
+
+            response = stringBuilder.toString();
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+            pdLoading.dismiss();
+
+            try {
+                JSONObject jsonObject = new JSONObject(response);
+                String fieldData = jsonObject.getString("field1");
+
+                String msg = null;
+                if (fieldData.equals("230"))
+                    msg = "Bulb turned off";
+                else if (fieldData.equals("231"))
+                    msg = "Bulb turned on";
+
+                else if (fieldData.equals("270"))
+                    msg = "Tuber Light turned off";
+                else if (fieldData.equals("271"))
+                    msg = "Tuber Light turned on";
+
+                else if (fieldData.equals("220"))
+                    msg = "Table Lamp turned off";
+                else if (fieldData.equals("221"))
+                    msg = "Table Lamp turned on";
+
+                else if (fieldData.equals("160"))
+                    msg = "Exhaust turned off";
+                else if (fieldData.equals("161"))
+                    msg = "Exhaust turned on";
+
+                else if (fieldData.equals("200"))
+                    msg = "Television turned off";
+                else if (fieldData.equals("201"))
+                    msg = "Television turned on";
+
+                else if (fieldData.equals("180"))
+                    msg = "Heater turned off";
+                else if (fieldData.equals("181"))
+                    msg = "Heater turned on";
+                Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+            } catch (JSONException ignored) {}
+        }
+    }
+
+    //new
+
+    public void changeButtonColor(final int index, int time){
+        CardView cardView = (CardView) gridLayout.getChildAt(index);
+        cardView.setCardBackgroundColor(Color.parseColor("#008080"));
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                CardView cardView1 = (CardView) gridLayout.getChildAt(index);
+                cardView1.setCardBackgroundColor(Color.parseColor("#FFFFFF"));
+            }
+        }, time);
+    }
+    public void changeButtonColor(final int index, String colorString){
+        CardView cardView = (CardView) gridLayout.getChildAt(index);
+        cardView.setCardBackgroundColor(Color.parseColor(colorString));
     }
 }

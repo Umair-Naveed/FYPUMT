@@ -29,13 +29,13 @@ public class CameraActivity extends AppCompatActivity implements AsyncResponse {
 
     WebView webview;
     String videoURL = "http://umtfyp.ddns.net:8081/";
-    String videoLocal = "http://192.168.8.25:8081/";
+    String videoLocal = "https://youtu.be/EgQbeQIjO58";
 
     GridLayout gridLayout;
 
     String urlOn, urlOff, camera;
     String local = "http://192.168.1.25";
-    String global = "https://api.thingspeak.com/update?key=VWGY0NZSR0X2FQIX&field1=25";
+    String global = "https://api.thingspeak.com/update?key=3GHF2BHT1ZK3XB38&field1=25";
     ImageButton openDoor, reload;
 
     @Override
@@ -51,11 +51,11 @@ public class CameraActivity extends AppCompatActivity implements AsyncResponse {
         openDoor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //urlOn = global + "1";
-                urlOn = local + "/digital/25/1";
-                //RequestUrl(urlOn);
+                urlOn = global + "1";
+                //urlOn = local + "/digital/25/1";
+                RequestUrl(urlOn);
                 camera = "ON";
-                GenAsync();
+                //GenAsync();
                 Toast.makeText(CameraActivity.this, "Door is Unlocked!", Toast.LENGTH_SHORT).show();
                 //Time delay for 500 milli seconds
                 final Handler handler = new Handler();
@@ -63,13 +63,14 @@ public class CameraActivity extends AppCompatActivity implements AsyncResponse {
                     @Override
                     public void run() {
                         //Do something after 100ms
-                        //urlOff = global + "0";
-                        urlOff = local + "/digital/25/0";
+                        urlOff = global + "0";
+                        //urlOff = local + "/digital/25/0";
                         //RequestUrl(urlOff);
                         camera = "OFF";
-                        GenAsync();
+                        //GenAsync();
+                        RequestUrl(urlOff);
                     }
-                }, 1000);
+                }, 17000);
 
                 changeButtonColor(0, 500);
             }
