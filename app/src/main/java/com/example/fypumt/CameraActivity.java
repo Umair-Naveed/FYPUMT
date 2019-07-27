@@ -28,8 +28,7 @@ import okhttp3.Response;
 public class CameraActivity extends AppCompatActivity implements AsyncResponse {
 
     WebView webview;
-    String videoURL = "http://umtfyp.ddns.net:8081/";
-    String videoLocal = "https://youtu.be/3XqcZPJxiyw";
+    String videoUrl = "https://youtu.be/3XqcZPJxiyw";
 
     GridLayout gridLayout;
 
@@ -89,7 +88,7 @@ public class CameraActivity extends AppCompatActivity implements AsyncResponse {
         WebSettings set = webview.getSettings();
         set.setJavaScriptEnabled(true);
         set.setBuiltInZoomControls(true);
-        webview.loadUrl(videoLocal);
+        webview.loadUrl(videoUrl);
     }
     public void RequestUrl(String url){
         OkHttpClient okHttpClient = new OkHttpClient();
