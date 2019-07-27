@@ -29,7 +29,7 @@ public class CameraActivity extends AppCompatActivity implements AsyncResponse {
 
     WebView webview;
     String videoURL = "http://umtfyp.ddns.net:8081/";
-    String videoLocal = "https://youtu.be/EgQbeQIjO58";
+    String videoLocal = "https://youtu.be/3XqcZPJxiyw";
 
     GridLayout gridLayout;
 
@@ -110,16 +110,13 @@ public class CameraActivity extends AppCompatActivity implements AsyncResponse {
     public void changeButtonColor(final int index, int time){
         CardView cardView = (CardView) gridLayout.getChildAt(index);
         cardView.setCardBackgroundColor(Color.parseColor("#008080"));
-        final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
+        (new Handler()).postDelayed(new Runnable() {
             @Override
             public void run() {
-                //Do something after 100ms
                 CardView cardView1 = (CardView) gridLayout.getChildAt(index);
                 cardView1.setCardBackgroundColor(Color.parseColor("#FFFFFF"));
-
             }
-        }, time);
+        }, 1500);
     }
 
     public void GenAsync(){

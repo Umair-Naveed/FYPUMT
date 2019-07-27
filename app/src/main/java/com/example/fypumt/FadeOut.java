@@ -4,8 +4,10 @@ import android.content.Intent;
 import android.os.Handler;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 public class FadeOut extends AppCompatActivity {
 
@@ -22,12 +24,16 @@ public class FadeOut extends AppCompatActivity {
                 startActivity(intent);
             }
         }, 2000);
-        Button button = findViewById(R.id.mainActivity);
-        button.setOnClickListener(new View.OnClickListener() {
+        ImageView imageView = findViewById(R.id.callMainActivity);
+        imageView.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(FadeOut.this, MainActivity.class);
-                startActivity(intent);
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()){
+                    case MotionEvent.ACTION_DOWN:
+                        Intent intent = new Intent(FadeOut.this, MainActivity.class);
+                        startActivity(intent);
+                }
+                return true;
             }
         });
     }
