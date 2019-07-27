@@ -15,11 +15,11 @@
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="144dp"
+            android:layout_height="wrap_content"
             android:gravity ="center_horizontal|center_vertical"
-            android:text="IoT Based Home \nAppliances Automation System"
+            android:text="IoT Based Home\nAppliances Automation System"
             android:textColor="@android:color/white"
-            android:textSize="34dp" />
+            android:textSize="31dp" />
 
     </RelativeLayout>
     <ImageView

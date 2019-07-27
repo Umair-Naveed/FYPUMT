@@ -28,7 +28,7 @@ tools:context=".MainActivity">
 
         <TextView
             android:id="@+id/textGrid"
-            android:text="IoT Based Home \nAppliances Automation System"
+            android:text="IoT Based Home \nAppliances Automation\nSystem"
             android:textSize="34sp"
             android:textColor="@android:color/white"
             android:layout_centerInParent="true"
