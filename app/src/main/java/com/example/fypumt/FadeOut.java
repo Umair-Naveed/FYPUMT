@@ -14,8 +14,7 @@ public class FadeOut extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fade_out);
-        final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
+        (new Handler()).postDelayed(new Runnable() {
             @Override
             public void run() {
                 //Do something after 2000ms

@@ -134,8 +134,7 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse, Vi
             @Override
             public void onClick(View v) {
                 changeButtonColor(6, 50);
-                final Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
+                (new Handler()).postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         changeButtonColor(6, 50);
@@ -551,8 +550,7 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse, Vi
     public void changeButtonColor(final int index, int time){
         CardView cardView = (CardView) gridLayout.getChildAt(index);
         cardView.setCardBackgroundColor(Color.parseColor("#008080"));
-        final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
+        (new Handler()).postDelayed(new Runnable() {
             @Override
             public void run() {
                 CardView cardView1 = (CardView) gridLayout.getChildAt(index);

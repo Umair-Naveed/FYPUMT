@@ -56,21 +56,16 @@ public class CameraActivity extends AppCompatActivity implements AsyncResponse {
                 camera = "ON";
                 //GenAsync();
                 Toast.makeText(CameraActivity.this, "Door is Unlocked!", Toast.LENGTH_SHORT).show();
-                //Time delay for 500 milli seconds
-                final Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
+                //Time delay for 17 seconds
+                (new Handler()).postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        //Do something after 100ms
                         urlOff = global + "0";
-                        //urlOff = local + "/digital/25/0";
-                        //RequestUrl(urlOff);
                         camera = "OFF";
                         //GenAsync();
                         RequestUrl(urlOff);
                     }
                 }, 17000);
-
                 changeButtonColor(0, 500);
             }
         });
