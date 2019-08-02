@@ -25,7 +25,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class CameraActivity extends AppCompatActivity implements AsyncResponse {
+public class CameraActivity extends AppCompatActivity {
 
     WebView webview;
     String videoUrl = "https://youtu.be/3XqcZPJxiyw";
@@ -113,21 +113,4 @@ public class CameraActivity extends AppCompatActivity implements AsyncResponse {
         }, 1500);
     }
 
-    public void GenAsync(){
-        try {
-
-            HashMap postData = new HashMap();
-            postData.put("camera", camera);
-            PostResponseAsyncTask task = new PostResponseAsyncTask(this, postData);
-            task.execute("http://192.168.8.25/ControllSwitches.php");
-        }
-        catch (ArrayIndexOutOfBoundsException e){
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void processFinish(String s) {
-
-    }
 }
