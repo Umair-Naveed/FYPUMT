@@ -12,12 +12,8 @@ import android.webkit.WebViewClient;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
 import android.widget.Toast;
-
-import com.kosalgeek.asynctask.AsyncResponse;
-import com.kosalgeek.asynctask.PostResponseAsyncTask;
-
 import java.io.IOException;
-import java.util.HashMap;
+
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -33,7 +29,6 @@ public class CameraActivity extends AppCompatActivity {
     GridLayout gridLayout;
 
     String urlOn, urlOff, camera;
-    String local = "http://192.168.1.25";
     String global = "https://api.thingspeak.com/update?key=3GHF2BHT1ZK3XB38&field1=25";
     ImageButton openDoor, reload;
 
