@@ -41,7 +41,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class MainActivity extends AppCompatActivity implements AsyncResponse, View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     Switch Switch1, Switch2, Switch3, Switch4, Switch5, Switch6;
     ImageButton cameraButton, sendSpeed;
@@ -220,7 +220,7 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse, Vi
         RequestUrlGlobal(fanGlobal);
     }
 
-    @Override
+            @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.switch1:
@@ -439,27 +439,6 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse, Vi
 
     }
 
-    @Override
-    public void processFinish(String s) {
-    }
-
-    public void GenAsync() {
-        try {
-
-            HashMap postData = new HashMap();
-            postData.put("Switch1", switchData1);
-            postData.put("Switch2", switchData2);
-            postData.put("Switch3", switchData3);
-            postData.put("Switch4", switchData4);
-            postData.put("Switch5", switchData5);
-            postData.put("Switch6", switchData6);
-            postData.put("speed", speed + "");
-            PostResponseAsyncTask task = new PostResponseAsyncTask(this, postData);
-            task.execute("http://192.168.8.25/ControllSwitches.php");
-        } catch (ArrayIndexOutOfBoundsException e) {
-            e.printStackTrace();
-        }
-    }
 
     private void showResponse(String url) {
         responseUrl = url;
